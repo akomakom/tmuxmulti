@@ -82,6 +82,7 @@ tmuxmulti() {
     tmux select-window -t "splitnew"
     tmux set-window-option -t "splitnew" synchronize-panes on > /dev/null
     tmux rename-window -t "splitnew" "$1"
+    tmux select-pane -t 0 # select first pane
 }
 
 # Alias
