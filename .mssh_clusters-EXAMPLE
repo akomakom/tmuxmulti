@@ -1,4 +1,5 @@
 # This is a sample ~/.mssh_clusters, it is simply a yaml-looking set of machine lists
+# Why mssh?  because I started with it, and then switched to tmux...
 
 ldap: ldap-001.my.secret.domain ldap-002.my.secret.domain
 nfs: nfs-00.my.secret.domain nfs-01.my.secret.domain
