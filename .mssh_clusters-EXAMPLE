@@ -6,7 +6,7 @@ docker-test: docker-test-01.my.secret.domain docker-test-02.my.secret.domain
 docker-swarm: docker-swarm-01.my.secret.domain docker-swarm-02.my.secret.domain docker-swarm-03.my.secret.domain
 
 # Completion examples that will work using this file:
-# $ tm lda<TAB>  # connect by list name
-# $ tm docker.*
+# $ tm lda<TAB>  # connect by list name, completes to "tm ldap" which expands to the two machines
+# $ tm docker.*  # expands both lists
 # $ tmh ldap-.*<TAB>  # connect by machine name
 
