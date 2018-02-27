@@ -1,0 +1,12 @@
+# This is a sample ~/.mssh_clusters, it is simply a yaml-looking set of machine lists
+
+ldap: ldap-001.my.secret.domain ldap-002.my.secret.domain
+nfs: nfs-00.my.secret.domain nfs-01.my.secret.domain
+docker-test: docker-test-01.my.secret.domain docker-test-02.my.secret.domain
+docker-swarm: docker-swarm-01.my.secret.domain docker-swarm-02.my.secret.domain docker-swarm-03.my.secret.domain
+
+# Completion examples that will work using this file:
+# $ tm lda<TAB>  # connect by list name
+# $ tm docker.*
+# $ tmh ldap-.*<TAB>  # connect by machine name
+
