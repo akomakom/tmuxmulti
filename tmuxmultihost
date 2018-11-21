@@ -52,11 +52,12 @@ tmuxmultihost() {
         return 1
     fi
     for host in $* ; do
-	HOST="$(grep -- "${host}" ~/.mssh_clusters | grep -v "^#")"
+	#HOST="$(grep -- "${host}" ~/.mssh_clusters | grep -v "^#")"
+	HOST=$(grep -- "${host}" ~/.mssh_clusters | grep -v "^#" | cut -d : -f 2 | tr ' ' '\n' | grep -v '^$' | grep -- "${host}")
 	if [ -z "$HOST" ] ; then
 		SSHARGS="$SSHARGS $cluster" # this is not a cluster, pass it as an option to ssh instead
 	else
-		HOSTS="$HOSTS $host"
+		HOSTS="$HOSTS $HOST"
 	fi
     done
  
@@ -73,11 +74,9 @@ tmuxmultihost() {
     tmux select-pane -t 'splitnew'
     tmux set-window-option -t 'splitnew' synchronize-panes on > /dev/null
     tmux rename-window -t 'splitnew' "$1"
-    tmux select-pane -t 0 # select first pane
 }
 
 # Alias
 
 [ "$have" ] && complete -F _tmuxmultihost tmh
 [ "$have" ] && tmh() { tmuxmultihost $*; }
-
