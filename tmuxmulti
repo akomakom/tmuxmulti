@@ -21,7 +21,7 @@ _tmuxmulti()
         # get the names of all defined clusters
         clusters=$(
         {
-                sed -e 's/^\([a-z0-9.-]\+\):.*$/\1/i' ~/.mssh_clusters 2> /dev/null || /bin/true
+                grep -v "#" ~/.mssh_clusters | sed -e 's/^\([a-z0-9.-]\+\):.*$/\1/i' 2> /dev/null || /bin/true
         } | sort -u)
 
         # get the names of any clusters that contain $cur
