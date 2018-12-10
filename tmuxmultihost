@@ -53,7 +53,7 @@ tmuxmultihost() {
     fi
     for host in $* ; do
 	#HOST="$(grep -- "${host}" ~/.mssh_clusters | grep -v "^#")"
-	HOST=$(grep -- "${host}" ~/.mssh_clusters | grep -v "^#" | cut -d : -f 2 | tr ' ' '\n' | grep -v '^$' | grep -- "${host}")
+	HOST=$(grep -- "${host}" ~/.mssh_clusters | grep -v "^#" | cut -d : -f 2 | tr ' ' '\n' | grep -v '^$' | grep -- "${host}" | uniq)
 	if [ -z "$HOST" ] ; then
 		SSHARGS="$SSHARGS $cluster" # this is not a cluster, pass it as an option to ssh instead
 	else
