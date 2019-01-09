@@ -3,14 +3,13 @@ The two bash completion scripts provide two bash completion prefixes:
 * **tm** or **tmuxmulti** ("Connect in a split terminal to all hosts in the matched list(s)")
 * **tmh** or **tmuxmultihost** ("Tmux Multi by Host", same but for matching against the hostnames rather than list names)
 
-The system-of-record for both of these is your **~/.mssh_clusters**
+The system-of-record for both of these is your **~/.tmux_clusters**
 
-Why is this based on mssh when it doesn't actually use mssh?  because I started with it, and then switched to tmux...
 
 ## Installation
 ### Option 1 (static)
 1. Copy one or both scripts to your /etc/bash_completion.d/
-2. Create a ~/.mssh_clusters with lists of your hosts (see below)
+2. Create a ~/.tmux_clusters with lists of your hosts (see below)
 3. Re-login or run `. /etc/bash_completion` in any shell you want to use this in.
 
 ### Option 2 (dynamic, you can just `git pull` to update to latest)
@@ -24,7 +23,7 @@ Why is this based on mssh when it doesn't actually use mssh?  because I started 
 
 ## Usage
 
-Given this **~/.mssh_clusters** file:
+Given this **~/.tmux_clusters** file:
 
     ldap: ldap-001.my.secret.domain ldap-002.my.secret.domain
     nfs: nfs-00.my.secret.domain nfs-01.my.secret.domain

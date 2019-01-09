@@ -15,18 +15,18 @@ _tmuxmultihost()
         cur=${COMP_WORDS[COMP_CWORD]}
         prev=${COMP_WORDS[COMP_CWORD-1]}
 
-        # all options understood by mssh
-        options='-a --alias -h --help -V --version'
+	# all options understood by tmux (currently unused)
+        options=''
 
         # get the names of all defined clusters
         clusters=$(
         {
-                sed -e 's/^.*:\(.*\)$/\1/i' ~/.mssh_clusters 2> /dev/null || /bin/true
+                sed -e 's/^.*:\(.*\)$/\1/i' ~/.tmux_clusters 2> /dev/null || /bin/true
         } | xargs | sort -u)
 
         # use options and clusters for tab completion, except there isn't yet
         # at least one character to filter by
-        # reason: don't show options if the user types "mssh <tab><tab>"
+        # reason: don't show options if the user types "tmh <tab><tab>"
         paroptions="$clusters"
         [ -n "$cur" ] && paroptions="$paroptions $options"
 
@@ -52,8 +52,8 @@ tmuxmultihost() {
         return 1
     fi
     for host in $* ; do
-	#HOST="$(grep -- "${host}" ~/.mssh_clusters | grep -v "^#")"
-	HOST=$(grep -- "${host}" ~/.mssh_clusters | grep -v "^#" | cut -d : -f 2 | tr ' ' '\n' | grep -v '^$' | grep -- "${host}" | sort -u)
+	#HOST="$(grep -- "${host}" ~/.tmux_clusters | grep -v "^#")"
+	HOST=$(grep -- "${host}" ~/.tmux_clusters | grep -v "^#" | cut -d : -f 2 | tr ' ' '\n' | grep -v '^$' | grep -- "${host}" | sort -u)
 	if [ -z "$HOST" ] ; then
 		SSHARGS="$SSHARGS $cluster" # this is not a cluster, pass it as an option to ssh instead
 	else

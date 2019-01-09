@@ -15,25 +15,25 @@ _tmuxmulti()
         cur=${COMP_WORDS[COMP_CWORD]}
         prev=${COMP_WORDS[COMP_CWORD-1]}
 
-        # all options understood by mssh
-        options='-a --alias -h --help -V --version'
+        # all options understood by tmux (not currently used)
+        options=''
 
         # get the names of all defined clusters
         clusters=$(
         {
-                grep -v "#" ~/.mssh_clusters | sed -e 's/^\([a-z0-9.-]\+\):.*$/\1/i' 2> /dev/null || /bin/true
+                grep -v "#" ~/.tmux_clusters | sed -e 's/^\([a-z0-9.-]\+\):.*$/\1/i' 2> /dev/null || /bin/true
         } | sort -u)
 
         # get the names of any clusters that contain $cur
         # this is so that you can use node names to retreive any clusters they might be in
         clusters_containing_cword=$(
         {
-                grep -- "$cur" ~/.mssh_clusters | grep -v "^#" | sed -e 's/^\([a-z0-9.-]\+\):.*$/\1/i' 2> /dev/null || /bin/true
+                grep -- "$cur" ~/.tmux_clusters | grep -v "^#" | sed -e 's/^\([a-z0-9.-]\+\):.*$/\1/i' 2> /dev/null || /bin/true
         } | sort -u)
 
         # use options and clusters for tab completion, except there isn't yet
         # at least one character to filter by
-        # reason: don't show options if the user types "mssh <tab><tab>"
+        # reason: don't show options if the user types "tm <tab><tab>"
         paroptions="$clusters"
         [ -n "$cur" ] && paroptions="$paroptions $options"
 
@@ -59,7 +59,7 @@ tmuxmulti() {
         return 1
     fi
     for cluster in $* ; do
-	HOST="$(grep -- "${cluster}:" ~/.mssh_clusters | grep -v "^#" |  cut -d : -f 2)"
+	HOST="$(grep -- "${cluster}:" ~/.tmux_clusters | grep -v "^#" |  cut -d : -f 2)"
 	if [ -z "$HOST" ] ; then
 		SSHARGS="$SSHARGS $cluster" # this is not a cluster, pass it as an option to ssh instead
 	else
