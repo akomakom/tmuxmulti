@@ -20,7 +20,7 @@ Why is this based on mssh when it doesn't actually use mssh?  because I started 
     ```
     ln -s /full/path/to/tmuxmulti /etc/bash_completion.d/
     ln -s /full/path/to/tmuxmultihost /etc/bash_completion.d/
-3. Re-login or run `. /etc/bash_completion` in any shell you want to use this in.
+3. Follow the **static** instructions from step 2.
 
 ## Usage
 
