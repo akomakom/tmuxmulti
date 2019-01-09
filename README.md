@@ -8,9 +8,19 @@ The system-of-record for both of these is your **~/.mssh_clusters**
 Why is this based on mssh when it doesn't actually use mssh?  because I started with it, and then switched to tmux...
 
 ### Installation
+#### Option 1 (static)
 1. Copy one or both scripts to your /etc/bash_completion.d/
 2. Create a ~/.mssh_clusters with lists of your hosts (see below)
-3. Re-login or run `. /etc/bash_completion` in your shell
+3. Re-login or run `. /etc/bash_completion` in any shell you want to use this in.
+
+#### Option 2 (dynamic, you can just `git pull` to update to latest)
+1. Check out this gist: 
+    `git clone git@gist.github.com:2dab995b6a48899eee841cc0e4a3192e.git`
+2. Symlink the two files: 
+    ```
+    ln -s /full/path/to/tmuxmulti /etc/bash_completion.d/
+    ln -s /full/path/to/tmuxmultihost /etc/bash_completion.d/
+3. Re-login or run `. /etc/bash_completion` in any shell you want to use this in.
 
 ### So, given this **~/.mssh_clusters** file:
     ldap: ldap-001.my.secret.domain ldap-002.my.secret.domain
