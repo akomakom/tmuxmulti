@@ -20,10 +20,12 @@ Why is this based on mssh when it doesn't actually use mssh?  because I started 
 
 ### Completion examples that will work using this file:
 ```
-tm lda<TAB>       # completes to "tm ldap" which connects to the two machines in that list (above)
+tm ldap           # connect to the two machines on the ldap: line
+tm lda<TAB>       # completes to "tm ldap", same as previous
 tm docker.*       # connects to 5 machines (in docker-test and docker-smarm)
 
 tmh ldap<TAB>     # interactive completion to one of the ldap full hostnames
-tmh ldap-.*       # connects to both ldap machines
+tmh ldap          # connects to both ldap machines (same as ldap-.* in this case)
+tmh ldap-.*       # connects to both ldap machines 
 tmh docker-swarm-0[1-2].*  # connects to 01 and 02 (not 03).
 ```
