@@ -31,6 +31,7 @@ Given this **~/.tmux_clusters** file:
     docker-swarm: docker-swarm-01.my.secret.domain docker-swarm-02.my.secret.domain docker-swarm-03.my.secret.domain
 
 ### Completion examples that will work using this file:
+(All commands will only work from within tmux)
 ```
 tm ldap           # connect to the two machines on the ldap: line
 tm lda<TAB>       # completes to "tm ldap", same as previous
