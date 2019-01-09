@@ -3,7 +3,7 @@ The two bash completion scripts provide two bash completion prefixes:
 * **tm** or **tmuxmulti** ("Connect in a split terminal to all hosts in the matched list(s)")
 * **tmh** or **tmuxmultihost** ("Tmux Multi by Host", same but for matching against the hostnames rather than list names)
 
-The system-of-record for both of these is your **~/.tmux_clusters**
+The system-of-record for both of these is your **~/.tmux_clusters** file (see below).
 
 
 ## Installation
