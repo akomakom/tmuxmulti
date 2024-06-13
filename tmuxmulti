@@ -70,9 +70,9 @@ tmuxmulti() {
 
     local hosts=( ${HOSTS} )
  
-    echo "Connecting to ${#hosts[@]} hosts"
-    echo "Starting with '${hosts[0]}'"
-    tmux new-window -n "splitnew" "ssh $SSHARGS ${hosts[0]}"
+    echo "Connecting to ${#hosts[@]} hosts, starting with '${hosts[0]}'"
+    tmux new-window -n 'splitnew' "ssh $SSHARGS ${hosts[0]}"
+    sleep 0.5  # Primarily for tmux on mac, ensure first window exists
     unset hosts[0];
     for i in "${hosts[@]}"; do
     echo "Splitting to '$i'"
