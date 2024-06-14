@@ -66,7 +66,6 @@ tmuxmulti() {
 		HOSTS="$HOSTS $HOST"
 	fi
     done
- 
 
     local hosts=( ${HOSTS} )
  
@@ -75,13 +74,13 @@ tmuxmulti() {
     sleep 0.5  # Primarily for tmux on mac, ensure first window exists
     unset hosts[0];
     for i in "${hosts[@]}"; do
-    echo "Splitting to '$i'"
-        tmux split-window -h -t "splitnew" "ssh $SSHARGS $i"
-        tmux select-layout -t "splitnew" tiled > /dev/null
+      echo "Splitting to '$i'"
+      tmux split-window -h -t 'splitnew' "ssh $SSHARGS $i"
+      tmux select-layout -t 'splitnew' tiled > /dev/null
     done
-    tmux select-window -t "splitnew"
-    tmux set-window-option -t "splitnew" synchronize-panes on > /dev/null
-    tmux rename-window -t "splitnew" "$1"
+    tmux select-window -t 'splitnew'
+    tmux set-window-option -t 'splitnew' synchronize-panes on > /dev/null
+    tmux rename-window -t 'splitnew' "$1"
     tmux select-pane -t 0 # select first pane
 }
 

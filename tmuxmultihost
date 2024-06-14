@@ -15,7 +15,7 @@ _tmuxmultihost()
         cur=${COMP_WORDS[COMP_CWORD]}
         prev=${COMP_WORDS[COMP_CWORD-1]}
 
-	# all options understood by tmux (currently unused)
+        # all options understood by tmux (not currently used)
         options=''
 
         # get the names of all defined clusters
@@ -60,7 +60,7 @@ tmuxmultihost() {
 		HOSTS="$HOSTS $HOST"
 	fi
     done
- 
+
     local hosts=( ${HOSTS} )
  
     echo "Connecting to ${#hosts[@]} hosts, starting with '${hosts[0]}'"
@@ -68,9 +68,9 @@ tmuxmultihost() {
     sleep 0.5  # Primarily for tmux on mac, ensure first window exists
     unset hosts[0];
     for i in "${hosts[@]}"; do
-    echo "Splitting to $i"
-        tmux split-window -h -t 'splitnew' "ssh $SSHARGS $i"
-        tmux select-layout -t 'splitnew' tiled > /dev/null
+      echo "Splitting to '$i'"
+      tmux split-window -h -t 'splitnew' "ssh $SSHARGS $i"
+      tmux select-layout -t 'splitnew' tiled > /dev/null
     done
     tmux select-pane -t 'splitnew'
     tmux set-window-option -t 'splitnew' synchronize-panes on > /dev/null
