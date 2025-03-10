@@ -7,6 +7,19 @@
 # Modified by James Mackie <jc.mackie@gmail.com> to enable node name matching.
 
 have tmux &&
+_tmuxmultihost_get_list()
+{
+  {
+    # read from tmux.clusters
+    grep -v '^#' ~/.tmux_clusters | sed -e 's/^.*:\(.*\)$/\1/i' | tr ' ' '\n'  2> /dev/null || /bin/true
+    # read from known_hosts also if not disabled via env var
+    if [ -z "$TMUXMULTI_DISABLE_KNOWN_HOSTS" ] ; then
+      [ -f ~/.ssh/known_hosts ] && grep -v '^#' ~/.ssh/known_hosts | awk '{print $1}' | sed -e 's|\[\(.*\)\].*|\1|'
+    fi
+  } | sort -u | xargs
+}
+
+have tmux &&
 _tmuxmultihost()
 {
         local cur prev options paroptions clusters clusters_containing_cword
@@ -19,10 +32,7 @@ _tmuxmultihost()
         options=''
 
         # get the names of all defined clusters
-        clusters=$(
-        {
-                sed -e 's/^.*:\(.*\)$/\1/i' ~/.tmux_clusters 2> /dev/null || /bin/true
-        } | xargs | sort -u)
+        clusters=$(_tmuxmultihost_get_list)
 
         # use options and clusters for tab completion, except there isn't yet
         # at least one character to filter by
@@ -47,18 +57,19 @@ tmuxmultihost() {
     local HOSTS HOST SSHARGS
     if [ -z "$*" ]; then
         echo "Please provide a list of hosts separated by spaces [TAB to list]..."
-	echo "You may pass ssh options as well, ie:  -l user cluster1 cluster2 ..."
-	echo "Regex allowed: cluster.*"
+        echo "You may pass ssh options as well, ie:  -l user cluster1 cluster2 ..."
+        echo "Regex allowed: cluster.*"
         return 1
     fi
+    clusters=$(_tmuxmultihost_get_list)
     for host in $* ; do
-	#HOST="$(grep -- "${host}" ~/.tmux_clusters | grep -v "^#")"
-	HOST=$(grep -- "${host}" ~/.tmux_clusters | grep -v "^#" | cut -d : -f 2 | tr ' ' '\n' | grep -v '^$' | grep -- "${host}" | sort -u)
-	if [ -z "$HOST" ] ; then
-		SSHARGS="$SSHARGS $cluster" # this is not a cluster, pass it as an option to ssh instead
-	else
-		HOSTS="$HOSTS $HOST"
-	fi
+        #HOST="$(grep -- "${host}" ~/.tmux_clusters | grep -v "^#")"
+        HOST=$(echo $clusters  | tr ' ' '\n' | grep "^${host}")
+        if [ -z "$HOST" ] ; then
+            SSHARGS="$SSHARGS $cluster" # this is not a cluster, pass it as an option to ssh instead
+        else
+            HOSTS="$HOSTS $HOST"
+        fi
     done
 
     local hosts=( ${HOSTS} )
